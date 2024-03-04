@@ -1,5 +1,6 @@
 public class Creature extends Main {
     int health;
+    int maxHP;
     int str;
     int def;
     int tempDef;

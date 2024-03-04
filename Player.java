@@ -1,22 +1,27 @@
 import java.lang.Math;
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Player extends Creature{
-    static int maxHP;
     static int xp = 0;
     static double xpReq = 16;
     static int lvl;
-    static int[] inventory = {0,1,1,2};
+    static ArrayList<Integer> inventory = new ArrayList<Integer>();
     
-    private static Player player = new Player(23);
+    private static Player instance = new Player(23);
     public static Player getInstance(){ // Returns the only instance of the player class
-        return player;
+        return instance;
     }
+    
     private Player(int hp) { // Creates a player with base states
         maxHP = hp;
         health = maxHP;
         lvl = 1;
         str = 5;
+        inventory.add(0);
+        inventory.add(1);
+        inventory.add(1);
+        inventory.add(2);
     }
     
     public static void checkForLevelUp(){ // Checks if the player has enough XP to level up

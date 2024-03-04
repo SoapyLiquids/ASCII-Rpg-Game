@@ -5,7 +5,7 @@ import java.lang.Math;
 public class Main {
     public static void main(String args[]) {
         System.setProperty("file.encoding", "UTF-8"); // Bogos binted?
-        Combat.startCombat(new Monster(10, 3, 0, true, 'p', 20, 5, "Giant Spider", "Aggressive")); //Combat test
+        Combat.start("Zombie"); //Combat test
     }
     
     public static void wait(double numSeconds){ // Sleeps the thread for (x) seconds

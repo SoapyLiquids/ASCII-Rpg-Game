@@ -2,26 +2,34 @@ import java.util.Scanner;
 import java.util.Random;
 
 public class Combat extends Main{
-    
     private static Player player = Player.getInstance();
+    private static Monster monster;
+    private static char pAction;
+    private static char mAction;
     
-    public static void startCombat(Monster monster) {
-        char pAction;
-        char mAction;
-        
-        
-        monster.animateSpider();
+    public static void start(String monsterName){
+        Monster.generate(monsterName);
+        monster = Monster.getInstance();
+        startCombat();
+    }
+    
+    private static void startCombat() {
+        Flavor.animateSpider();
         System.out.print("\033[H\033[2J");
         System.out.println("You encounter a " + monster.getName() + "!");
-        while (combatActive(player,monster)){
-            monster.printSpider();
+        
+        
+        while (combatActive()){
+            Flavor.printSpider();
             System.out.println("What would you like to do?");
+            
             pAction = player.getPlayerAction();
             handlePlayerAction(pAction,monster);
             mAction = monster.getMonsterAction();
             monster.tickStatus();
             handleMonsterAction(mAction,monster);
             player.tickStatus();
+            
             System.out.println("You have " + player.getHP() + " Health remaining\n" 
                                 + percentageBar(player.getHP(), player.maxHP) + "\n");
             wait(2.5);
@@ -47,6 +55,8 @@ public class Combat extends Main{
             System.out.println("You raise your sheild and ready your stance, increasing your defence by " + player.tempDef);
         }
         else if (action == 'r') {
+            mAction = monster.getMonsterAction();
+            handleMonsterAction(mAction,monster);
             System.out.println("\n\n\nCoward...");
             gameOver();
         }
@@ -70,11 +80,11 @@ public class Combat extends Main{
         }
     }
     
-    private static void monsterInflictStatus(char effect, int chance, int potency){
+    private static void monsterInflictStatus(String effect, int chance, int potency){
         if (chanceTo(chance,100)) player.effectPoison(5);
     }
 
-    public static boolean combatActive(Player player,Monster monster){
+    public static boolean combatActive(){
         if (!monster.isAlive()) return false;
         if (!player.isAlive()) gameOver();
         return true;

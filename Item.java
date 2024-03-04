@@ -11,6 +11,7 @@ public class Item extends Main{
     public static void handleItemAction(){
         Scanner scan = new Scanner(System.in, "UTF-8");
         validIndex = false;
+        itemUsed = false;
         System.out.println("Enter the index of the item you wish to use");
         Item.printInv();
         
@@ -23,7 +24,6 @@ public class Item extends Main{
                 System.out.println("Not a number, try again");
             }
         }
-        System.out.print(index);
         
         while (!itemUsed && index != 0){
             if (index <= items.length - 1 && index != 0) {
@@ -42,7 +42,7 @@ public class Item extends Main{
         if (itemID == 2){
             antidote();
         }
-        player.inventory[inventoryIndex] = 0;
+        player.inventory.remove(inventoryIndex);
     }
     private static void useItem(int itemIndex){
         useItem(itemIndexToId(itemIndex),itemIndex);
@@ -59,7 +59,7 @@ public class Item extends Main{
         return items[id];
     }
     public static int itemIndexToId(int index){
-        return player.inventory[index];
+        return player.inventory.get(index);
     }
     
     private static void healingPotion(){

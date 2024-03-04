@@ -1,25 +1,46 @@
+import java.util.ArrayList;
+
 public class Monster extends Creature {
+    public static Monster[] plainsMonsters = {new Monster(1, 1, 0, "Bunny", "Fearful")
+                                     , new Monster(6, 3, 1, "Jackalope", "Neutral")
+                                     , new Monster(5, 5, 1, "Slow", 100,  2, "Slime", "Savage")
+                                     , new Monster(8, 5, 3, "Wulfrum Golem", "Neutral")
+                                     , new Monster(12, 4, 0, "Zombie", "Aggresive")};
     String name;
-    String behavior;
-    int xpReward;
-    char effect;
-    int chance;
-    int potency;
-    boolean hasStatus;
-    int maxHp;
+    static String behavior;
+    static int xpReward;
+    static String effect;
+    static int chance;
+    static int potency;
+    static boolean hasStatus = false;
+
+    private static Monster instance;
+    public static Monster getInstance(){ // Returns the only instance of the Monster class
+        return instance;
+    }
     
-    public Monster(int hp, int str, int def, boolean hasStatus, String name, String behavior){
+    public static void generate(String monster){
+        for (int i = 0; i <= plainsMonsters.length - 1 ; i++){
+            if (plainsMonsters[i].getName().equals(monster)) {
+                instance = plainsMonsters[i];
+                return;
+            }
+        }
+        instance = new Monster(999,999,999, "ERROR", "ERROR");
+    }
+    
+    private Monster(int hp, int str, int def, String name, String behavior){
         this.health = hp;
-        this.maxHp = hp;
+        this.maxHP = hp;
         this.str = str;
         this.def = def;
         this.name = name;
         this.behavior = behavior;
         xpReward = (hp + (str*3) + (def*6)) / 3;
     }
-    public Monster(int hp, int str, int def, boolean hasStatus, char eff, int cha, int pot, String name, String behavior){
+    private Monster(int hp, int str, int def, String eff, int cha, int pot, String name, String behavior){
         this.health = hp;
-        this.maxHp = hp;
+        this.maxHP = hp;
         this.str = str;
         this.def = def;
         this.name = name;
@@ -27,90 +48,38 @@ public class Monster extends Creature {
         this.effect = eff;
         this.chance = cha;
         this.potency = pot;
-        this.hasStatus = hasStatus;
+        hasStatus = true;
         xpReward = (hp + (str*potency) + (def*6)) / 3;
     }
     
     public String getName(){
         return name;
     }
-    
-    public char getMonsterAction(){
-        int random;
-        char action = 'a'; //Placeholder might  be changed
-    
-        if (behavior.toUpperCase().equals("AGGRESSIVE")){
-            random = rollD(5);
-            if (random <= 4){ //Nothing for now, in the future 4/5 chance to attack, 1/5 to defend
-                action = 'a';
-            }
-            else action = 'd';
+
+    public static char getMonsterAction(){
+        char action = 'd'; //Placeholder might  be changed
+        if (behavior.toUpperCase().equals("DEFENSELESS")){
+            if (chanceTo(1,6)) action = 'a';
+        }
+        else if (behavior.toUpperCase().equals("FEARFUL")){
+            if (chanceTo(2,6)) action = 'a';
+        }
+        else if (behavior.toUpperCase().equals("CAUTIOUS")){
+            if (chanceTo(3,6)) action = 'a';
+        }
+        else if (behavior.toUpperCase().equals("NEUTRAL")){
+            if (chanceTo(4,6)) action = 'a';
+        }
+        else if (behavior.toUpperCase().equals("AGGRESSIVE")){
+            if (chanceTo(5,6)) action = 'a';
+        }
+        else if (behavior.toUpperCase().equals("SAVAGE")){
+            action = 'a';
         }
         return action;
     }
-    
-    public void animateSpider(){
-        final String[] spider = {"       |"
-                                        ,"       |"
-                                        ,"       |"
-                                        ,"   /   |   \\"
-                                        ,"   \\   |   /"
-                                        ," .  --\\|/--  ,"
-                                        ,"  '--|___|--'"
-                                        ,"  ,--|___|--,"
-                                        ," '  /\\o o/\\  `"
-                                        ,"   +       +"
-                                        ,"    `     '"
-                                        ,""
-                                        ,""
-                                        ,""
-                                        ,"   /       \\"
-                                        ,"   \\       /"
-                                        ," .  --\\ /--  ,"};
-        for (int outer = 10 ; outer >= 0 ; outer--){
-            wait(0.2);
-            System.out.print("\033[H\033[2J\n");
-            for (int inner = outer ; inner <= 10 ; inner++){
-                System.out.println(spider[inner]);
-            }
-        }
-        wait(0.5);
-        for (int outer = 5 ; outer >= 0 ; outer--){
-            wait(0.2);
-            System.out.print("\033[H\033[2J\n");
-            spider[outer] = spider[outer + 11];
-            for (int inner = 0 ; inner <= 10 ; inner++){
-                System.out.println(spider[inner]);
-            }
-        }
-        wait(1.0);
-    }
-    public void printSpider(){
-        System.out.println("        \n"
-                          +"        \n"
-                          +"        \n"
-                          +"   /       \\\n"
-                          +"   \\       /\n"
-                          +" .  --\\ /--  ,\n"
-                          +"  '--|___|--'\n"
-                          +"  ,--|___|--,\n"
-                          +" '  /\\o o/\\  `\n"
-                          +"   +       +\n"
-                          +"    `     '\n"
-                          + percentageBar(health, maxHp) + "\n");
-        wait(1.0);
-    }
-    public void printWolf(){
-        System.out.println("                n,\n"
-                        +  "              _/ | _\n"
-                        +  "             /'  `'/\n"
-                        +  "            <~    .'\n"
-                        +  "            .'    |\n"                 
-                        +  "          _/      |\n"
-                        +  "        _/      `.`.\n"
-                        +  "       / '   \\__ | |\n"
-                        +  "   ___/      /__\\ \\ \\\n"
-                        +  "  (___.'\\_______)\\_|_|\n"
-                        + percentageBar(health, maxHp) + "\n");
+    @Override
+    public String toString(){
+        return(name + " with " + health + " health, " + str + " strength, and " + def + " defence");
     }
 }

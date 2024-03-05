@@ -26,12 +26,15 @@ public class Item extends Main{
         }
         
         while (!itemUsed && index != 0){
-            if (index <= items.length - 1 && index != 0) {
+            if (index < player.inventory.size() && index != 0) {
                 Item.useItem(index);
                 itemUsed = true;
             }
             else if (index == 0) {}
-            else System.out.println("Value invalid. See numbers on the side");
+            else {
+                System.out.println("Value invalid. See numbers on the side");
+                break;
+            }
         }
     }
     

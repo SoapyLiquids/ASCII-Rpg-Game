@@ -63,22 +63,20 @@ public class Flavor extends Main {
                         +  "   ___/      /__\\ \\ \\\n"
                         +  "  (___.'\\_______)\\_|_|\n"
                         + percentageBar(Monster.getInstance().health, Monster.getInstance().maxHP) + "\n");
-    }/*
-    public static void printZombie(){
-        System.out.println( (()))
-                            |x x|
-                            ( - )
-                          __/\/__
-                         /=`'-'-'\  !!
-                        |-{-_-_-} |   !
-                         (-{-_-_-})   !
-                         \{_-_-_}/  !
-                          }-_-_-}
-                          {-_|-_}
-                          {-_|_-}
-                          {_-|-_}
-                          {_-|-_}  
-                          %%@ @%%
     }
-    */
+    public static void printZombie(){
+        System.out.println("    (()))\n"
+                        +  "    |x x|\n"
+                        +  "    ( - )\n"
+                        +  "   __/\\/__\n"
+                        +  "  /=`'-/  \\\n"
+                        +  " |/{-_-\\_} |\n"
+                        +  "   }_____} |\n"
+                        +  "   }-_-_-}W\n"
+                        +  "   {\\_|-_}\n"
+                        +  "   {|_|_-}\n"
+                        +  "   {/-|-_}\n"
+                        +  "   %%@ @%%\n"
+                        + percentageBar(Monster.getInstance().health, Monster.getInstance().maxHP) + "\n");
+    }
 }

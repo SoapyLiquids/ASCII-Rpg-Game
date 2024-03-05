@@ -5,7 +5,8 @@ public class Monster extends Creature {
                                      , new Monster(6, 3, 1, "Jackalope", "Neutral")
                                      , new Monster(5, 5, 1, "Slow", 100,  2, "Slime", "Savage")
                                      , new Monster(8, 5, 3, "Wulfrum Golem", "Neutral")
-                                     , new Monster(12, 4, 0, "Zombie", "Aggresive")};
+                                     , new Monster(12, 4, 0, "Zombie", "Aggressive")
+                                     , new Monster(10, 3, 0, "Poison", 20, 5, "Giant Spider", "Aggressive")};
     String name;
     static String behavior;
     static int xpReward;
@@ -26,7 +27,7 @@ public class Monster extends Creature {
                 return;
             }
         }
-        instance = new Monster(999,999,999, "ERROR", "ERROR");
+        instance = new Monster(999,999,999, "ERROR", "Savage");
     }
     
     private Monster(int hp, int str, int def, String name, String behavior){

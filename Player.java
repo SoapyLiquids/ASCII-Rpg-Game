@@ -91,6 +91,7 @@ public class Player extends Creature{
             }
             wait(2.0);
         }
+        overKillCheck();
     }
     
     // @Override
@@ -114,5 +115,8 @@ public class Player extends Creature{
     }
     public void overhealCheck(){
         if (health > maxHP) health = maxHP;
+    }
+    private void overKillCheck(){
+        if (health < 0) health = 0;
     }
 }

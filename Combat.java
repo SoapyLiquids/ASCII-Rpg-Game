@@ -20,7 +20,7 @@ public class Combat extends Main{
         
         
         while (combatActive()){
-            Flavor.printSpider();
+            Flavor.printZombie();
             System.out.println("What would you like to do?");
             
             pAction = player.getPlayerAction();
@@ -29,7 +29,7 @@ public class Combat extends Main{
             monster.tickStatus();
             handleMonsterAction(mAction,monster);
             player.tickStatus();
-            
+
             System.out.println("You have " + player.getHP() + " Health remaining\n" 
                                 + percentageBar(player.getHP(), player.maxHP) + "\n");
             wait(2.5);

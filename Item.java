@@ -26,7 +26,7 @@ public class Item extends Main{
         }
         
         while (!itemUsed && index != 0){
-            if (index < player.inventory.size() && index != 0) {
+            if (index < Player.inventory.size() && index != 0) {
                 Item.useItem(index);
                 itemUsed = true;
             }
@@ -45,7 +45,7 @@ public class Item extends Main{
         if (itemID == 2){
             antidote();
         }
-        player.inventory.remove(inventoryIndex);
+        Player.inventory.remove(inventoryIndex);
     }
     private static void useItem(int itemIndex){
         useItem(itemIndexToId(itemIndex),itemIndex);
@@ -53,7 +53,7 @@ public class Item extends Main{
     
     private static void printInv(){
         int index = 0;
-        for (int item : player.inventory){
+        for (int item : Player.inventory){
             System.out.println(index + " - " + items[item]);
             index++;
         }
@@ -62,7 +62,7 @@ public class Item extends Main{
         return items[id];
     }
     public static int itemIndexToId(int index){
-        return player.inventory.get(index);
+        return Player.inventory.get(index);
     }
     
     private static void healingPotion(){

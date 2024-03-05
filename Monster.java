@@ -1,4 +1,4 @@
-import java.util.ArrayList;
+// import java.util.ArrayList;
 
 public class Monster extends Creature {
     public static Monster[] plainsMonsters = {new Monster(1, 1, 0, "Bunny", "Fearful")
@@ -30,25 +30,25 @@ public class Monster extends Creature {
         instance = new Monster(999,999,999, "ERROR", "Savage");
     }
     
-    private Monster(int hp, int str, int def, String name, String behavior){
+    private Monster(int hp, int str, int def, String name, String behav){
         this.health = hp;
         this.maxHP = hp;
         this.str = str;
         this.def = def;
         this.name = name;
-        this.behavior = behavior;
+        behavior = behav;
         xpReward = (hp + (str*3) + (def*6)) / 3;
     }
-    private Monster(int hp, int str, int def, String eff, int cha, int pot, String name, String behavior){
+    private Monster(int hp, int str, int def, String eff, int cha, int pot, String name, String behav){
         this.health = hp;
         this.maxHP = hp;
         this.str = str;
         this.def = def;
         this.name = name;
-        this.behavior = behavior;
-        this.effect = eff;
-        this.chance = cha;
-        this.potency = pot;
+        behavior = behav;
+        effect = eff;
+        chance = cha;
+        potency = pot;
         hasStatus = true;
         xpReward = (hp + (str*potency) + (def*6)) / 3;
     }

@@ -38,7 +38,7 @@ public class Player extends Creature{
         xpReq = Math.floor(5.0*Math.pow(lvl,2) + lvl + 10.0);
     }
     
-    public char getPlayerAction(){
+    public static char getPlayerAction(){
         boolean actionIsValid = false;
         String action = "null";
         Scanner scan = new Scanner(System.in, "UTF-8");
@@ -62,7 +62,7 @@ public class Player extends Creature{
                     if (checkValidActionNoItem(action) == -1) System.out.println("Action Invalid, try again\n");
                     else actionIsValid = true;
                 }
-            }
+            }   
         }
         return action.toLowerCase().charAt(checkValidAction(action));
     }
@@ -100,14 +100,14 @@ public class Player extends Creature{
     //     player.tempDef = (player.health /10) + rollD(player.str /2);
     // }
     
-    private int checkValidAction(String action){
+    private static int checkValidAction(String action){
         if      (action.toUpperCase().contains("ATTACK")) return action.toUpperCase().indexOf("ATTACK");
         else if (action.toUpperCase().contains("ITEM"))   return action.toUpperCase().indexOf("ITEM");
         else if (action.toUpperCase().contains("RUN"))    return action.toUpperCase().indexOf("RUN");
         else if (action.toUpperCase().contains("DEFEND")) return action.toUpperCase().indexOf("DEFEND");
         return -1;
     }
-    private int checkValidActionNoItem(String action){
+    private static int checkValidActionNoItem(String action){
         if      (action.toUpperCase().contains("ATTACK")) return action.toUpperCase().indexOf("ATTACK");
         else if (action.toUpperCase().contains("RUN"))    return action.toUpperCase().indexOf("RUN");
         else if (action.toUpperCase().contains("DEFEND")) return action.toUpperCase().indexOf("DEFEND");

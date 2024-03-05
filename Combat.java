@@ -1,6 +1,3 @@
-import java.util.Scanner;
-import java.util.Random;
-
 public class Combat extends Main{
     private static Player player = Player.getInstance();
     private static Monster monster;
@@ -23,9 +20,9 @@ public class Combat extends Main{
             Flavor.printZombie();
             System.out.println("What would you like to do?");
             
-            pAction = player.getPlayerAction();
+            pAction = Player.getPlayerAction();
             handlePlayerAction(pAction,monster);
-            mAction = monster.getMonsterAction();
+            mAction = Monster.getMonsterAction();
             monster.tickStatus();
             handleMonsterAction(mAction,monster);
             player.tickStatus();
@@ -35,9 +32,9 @@ public class Combat extends Main{
             wait(2.5);
             System.out.print("\033[H\033[2J\n");
         }
-        System.out.println("You defeated the " + monster.getName() + "... congratulations!!!\nYou've earned " + monster.xpReward + "XP!");
-        player.xp += monster.xpReward;
-        player.checkForLevelUp();
+        System.out.println("You defeated the " + monster.getName() + "... congratulations!!!\nYou've earned " + Monster.xpReward + "XP!");
+        Player.xp += Monster.xpReward;
+        Player.checkForLevelUp();
     }
     
     public static void handlePlayerAction(char action,Monster monster){
@@ -55,7 +52,7 @@ public class Combat extends Main{
             System.out.println("You raise your sheild and ready your stance, increasing your defence by " + player.tempDef);
         }
         else if (action == 'r') {
-            mAction = monster.getMonsterAction();
+            mAction = Monster.getMonsterAction();
             handleMonsterAction(mAction,monster);
             System.out.println("\n\n\nCoward...");
             gameOver();
@@ -66,7 +63,7 @@ public class Combat extends Main{
         if (action == 'a') { //Attack Script
             int damage = (monster.getStr()/2 + rollD(monster.getStr())) - (player.def + player.tempDef);
             if (damage < 0) damage = 0;
-            if (damage > 0 && monster.hasStatus) monsterInflictStatus(monster.effect, monster.chance, monster.potency);
+            if (damage > 0 && Monster.hasStatus) monsterInflictStatus(Monster.effect, Monster.chance, Monster.potency);
             System.out.println("The " + monster.getName() 
                                 + " sinks its teeth into you, dealing " 
                                 + damage + " damage\n");

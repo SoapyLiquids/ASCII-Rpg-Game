@@ -66,8 +66,8 @@ public class World extends Main {
         }
         
         public static void encounter(){
-            generateMonster("Goblin",Monster.getMonsterList("Plains"));
-            // generateRandomMonster(Monster.getMonsterList("Plains"));
+            // generateMonster("Goblin",Monster.getMonsterList("Plains"));
+            generateRandomMonster(Monster.getMonsterList("Plains"));
             Combat.start();
         }
     }

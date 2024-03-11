@@ -13,7 +13,7 @@ public class Item extends Main{
         validIndex = false;
         itemUsed = false;
         System.out.println("Enter the index of the item you wish to use");
-        Item.printInv();
+        printInv();
         
         while (!validIndex){
             try {

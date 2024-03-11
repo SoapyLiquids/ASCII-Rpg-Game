@@ -1,12 +1,12 @@
-// import java.util.ArrayList;
+import java.util.ArrayList;
 
 public class Monster extends Creature {
-    public static Monster[] plainsMonsters = {new Monster(1, 1, 0, "Bunny", "Fearful")
-                                     , new Monster(6, 3, 1, "Jackalope", "Neutral")
-                                     , new Monster(5, 5, 1, "Slow", 100,  2, "Slime", "Savage")
-                                     , new Monster(8, 5, 3, "Wulfrum Golem", "Neutral")
-                                     , new Monster(12, 4, 0, "Zombie", "Aggressive")
-                                     , new Monster(10, 3, 0, "Poison", 20, 5, "Giant Spider", "Aggressive")};
+    public static Monster[] plainsMonsters = {new Monster(6, 3, 1, "Jackalope", "Fearful")
+                                            , new Monster(8, 4, 0, "Wolf", "Neutral")
+                                            , new Monster(12,3, 0, "Goblin", "Aggresive")
+                                            , new Monster(8, 5, 1, "Slime", "Savage")
+                                            , new Monster(12, 4,0, "Zombie", "Aggressive")
+                                            , new Monster(8, 5, 3, "Wulfrum Golem", "Neutral")};
     String name;
     static String behavior;
     static int xpReward;
@@ -20,37 +20,43 @@ public class Monster extends Creature {
         return instance;
     }
     
-    public static void generate(String monster){
-        for (int i = 0; i <= plainsMonsters.length - 1 ; i++){
-            if (plainsMonsters[i].getName().equals(monster)) {
-                instance = plainsMonsters[i];
-                return;
-            }
-        }
-        instance = new Monster(999,999,999, "ERROR", "Savage");
+    public static void setInstance(Monster monst){
+        instance = monst;
     }
     
-    private Monster(int hp, int str, int def, String name, String behav){
+    private Monster(int hp, int str, int def, String name, String behavior){
         this.health = hp;
         this.maxHP = hp;
         this.str = str;
         this.def = def;
         this.name = name;
-        behavior = behav;
+        this.behavior = behavior;
         xpReward = (hp + (str*3) + (def*6)) / 3;
     }
-    private Monster(int hp, int str, int def, String eff, int cha, int pot, String name, String behav){
+    private Monster(int hp, int str, int def, String eff, int cha, int pot, String name, String behavior){
         this.health = hp;
         this.maxHP = hp;
         this.str = str;
         this.def = def;
         this.name = name;
-        behavior = behav;
-        effect = eff;
-        chance = cha;
-        potency = pot;
+        this.behavior = behavior;
+        this.effect = eff;
+        this.chance = cha;
+        this.potency = pot;
         hasStatus = true;
         xpReward = (hp + (str*potency) + (def*6)) / 3;
+    }
+    public Monster(String error){
+        this.health = 999;
+        this.maxHP = 999;
+        this.str = 999;
+        this.def = 999;
+        this.name = "ERROR";
+        this.behavior = "SAVAGE";
+    }
+    
+    public static Monster[] getMonsterList(String location){
+        return plainsMonsters;
     }
     
     public String getName(){

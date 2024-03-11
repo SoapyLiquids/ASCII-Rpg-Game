@@ -25,6 +25,10 @@ public class Creature extends Main {
         return health > 0;
     }
     
+    public void necromance(){
+        health = maxHP;
+    }
+    
     public int poisonDur = 0;
     public int defendDur = 0;
     

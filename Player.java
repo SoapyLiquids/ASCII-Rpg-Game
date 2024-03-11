@@ -7,6 +7,7 @@ public class Player extends Creature{
     static double xpReq = 16;
     static int lvl;
     static ArrayList<Integer> inventory = new ArrayList<Integer>();
+    static String playerName;
     
     private static Player instance = new Player(23);
     public static Player getInstance(){ // Returns the only instance of the player class
@@ -38,7 +39,7 @@ public class Player extends Creature{
         xpReq = Math.floor(5.0*Math.pow(lvl,2) + lvl + 10.0);
     }
     
-    public static char getPlayerAction(){
+    public char getPlayerAction(){
         boolean actionIsValid = false;
         String action = "null";
         Scanner scan = new Scanner(System.in, "UTF-8");
@@ -49,22 +50,24 @@ public class Player extends Creature{
             action = scan.nextLine();    
             
             if (checkValidAction(action) == -1) System.out.println("Action Invalid, try again\n");
-            
-            act = action.toLowerCase().charAt(checkValidAction(action));
-            
-            if (act != 'i') return action.toLowerCase().charAt(checkValidAction(action));
-            Item.handleItemAction();
-            if (Item.itemUsed) {
-                while (!actionIsValid){
-                    System.out.println("Attack | Defend | Run");
-                    action = scan.nextLine();    
-                
-                    if (checkValidActionNoItem(action) == -1) System.out.println("Action Invalid, try again\n");
-                    else actionIsValid = true;
-                }
-            }   
+            else actionIsValid = true;
         }
-        return action.toLowerCase().charAt(checkValidAction(action));
+        act = action.toLowerCase().charAt(checkValidAction(action));
+        
+        if (act != 'i') return act;
+        Item.handleItemAction();
+        if (Item.itemUsed) {
+            actionIsValid = false;
+            while (!actionIsValid){
+                System.out.println("Attack | Defend | Run");
+                action = scan.nextLine();    
+            
+                if (checkValidActionNoItem(action) == -1) System.out.println("Action Invalid, try again\n");
+                else actionIsValid = true;
+            }
+        }
+        else act = getPlayerAction();
+        return act;
     }
     
     @Override
@@ -94,20 +97,25 @@ public class Player extends Creature{
         overKillCheck();
     }
     
+    public static void askPlayerName(){
+        Scanner scan = new Scanner(System.in, "UTF-8");
+        playerName = scan.nextLine();
+    }
+    
     // @Override
     // public void effectDefend(){
     //     defendDur = 3;
     //     player.tempDef = (player.health /10) + rollD(player.str /2);
     // }
     
-    private static int checkValidAction(String action){
+    private int checkValidAction(String action){
         if      (action.toUpperCase().contains("ATTACK")) return action.toUpperCase().indexOf("ATTACK");
         else if (action.toUpperCase().contains("ITEM"))   return action.toUpperCase().indexOf("ITEM");
         else if (action.toUpperCase().contains("RUN"))    return action.toUpperCase().indexOf("RUN");
         else if (action.toUpperCase().contains("DEFEND")) return action.toUpperCase().indexOf("DEFEND");
         return -1;
     }
-    private static int checkValidActionNoItem(String action){
+    private int checkValidActionNoItem(String action){
         if      (action.toUpperCase().contains("ATTACK")) return action.toUpperCase().indexOf("ATTACK");
         else if (action.toUpperCase().contains("RUN"))    return action.toUpperCase().indexOf("RUN");
         else if (action.toUpperCase().contains("DEFEND")) return action.toUpperCase().indexOf("DEFEND");
